@@ -129,7 +129,7 @@ class MarketOpinionModel:
                     self.buychanceList.append(self.buyprob)
                     self.NobuychanceList.append(self.nobuyprob)
                 self.mu_updater()
-    def plot_probs(self) -> None:
+    def plot_probs(self, save=0,name="1") -> None:
         # Just plots the probabilities
         nrcycles = len(self.buychanceList)
         time = np.arange(0,nrcycles)
@@ -139,11 +139,13 @@ class MarketOpinionModel:
         plt.xlabel("discrete time")
         plt.ylabel("Probabilities")
         plt.legend()
+        if save == 1:
+            plt.savefig("figs/"+name+".pdf")
         plt.show() 
 
     # Plots the evolution of mu as a function of discrete time
     #Note: Only works for alogirthms that update mu
-    def muplot(self) -> None:
+    def muplot(self,save = 0,name = "1") -> None:
         nrcycles = len(self.mulist)
         time = np.arange(0,nrcycles)
         plt.grid()
@@ -151,6 +153,8 @@ class MarketOpinionModel:
         plt.plot(time,muarray / self.sigma)
         plt.xlabel("discrete time")
         plt.ylabel(r"$\mu/\sigma$")
+        if save == 1:
+            plt.savefig("figs/"+name+".pdf")
         plt.show()         
 
 
@@ -175,7 +179,7 @@ class StandardStockModel(MarketOpinionModel):
             self.ValueList.append(self.Value)
             self.Market_evolver()
 
-    def plot_stonks(self) -> None:
+    def plot_stonks(self,save = 0, name = "1") -> None:
         # Plots stock value
         T = len(self.ValueList)
         time = np.arange(0,T)
@@ -184,4 +188,6 @@ class StandardStockModel(MarketOpinionModel):
         plt.xlabel("discrete time")
         plt.ylabel("Stock price")
         plt.legend()
+        if save == 1:
+            plt.savefig("figs/"+name+".pdf")
         plt.show() 

@@ -33,9 +33,8 @@ Stonk = StandardStockModel(200,"low",0)
 Stonk.Init_MarketOpinion(0.5)
 Stonk.set_evolver("G")
 Stonk.price_time_evolve(cycles)
-Stonk.plot_probs()
-plt.savefig("figs/probabilities_example.pdf")
-Stonk.plot_stonks()
-plt.savefig("figs/stock_example.pdf")
+Stonk.plot_probs(save = 1,name = "probabilities_example")
+Stonk.plot_stonks(save = 1, name = "stock_example")
+
 
 
