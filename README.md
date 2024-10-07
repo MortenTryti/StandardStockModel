@@ -16,6 +16,9 @@ The stock market is vast, and contains a lot of data. So why should the Standard
 ## Current methods
 The current code is rather new and thus has a very limited number of features. It currently consists of two classes, which will be detailed below.
 
+All current methods work in iterative steps with discrete time. The current model works by updating the market opinion $MO_i$ of the financial asset in question.
+
+$MO_i\rightarrow MO_{i+1}$
 
 ### The MarketOpinionModel class
 
@@ -26,4 +29,14 @@ The current code is rather new and thus has a very limited number of features. I
 
 ## Further development
 
-* Implement the GARP strategy and the requirements of the strategy
+* Implement the GARP strategy and the requirements of the strategy.
+
+* Implement a more realistic event-chain in market opinion models with e.g. quarterly reports and more.
+
+* Update the probability-values in the methods to be more realistic.
+
+* Implement a statistics class for analysis.
+
+* Implement an agent based trading-system for price updates.
+
+
