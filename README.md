@@ -3,6 +3,13 @@ This is my personal hobby project, where I try to model market opinions as a fou
 
 
 While I have no formal education in financial markets and capital management they are an interest of mine, which began when I first read the book "Capital in the twenty-first century" by French economist Thomas Piketty. 
+
+![Image1](/scr/figs/probabilities_example.pdf "Example of market opinion evolution")
+
+
+![Image2](/scr/figs/stock_example.pdf "Corrsponding stock evolution with said market opinion")
+
+
 ### Goals
 The current goal for this project is to develop tools and methods motivated by the hypothesis that investors and stock prices follow the market opinion of the stock. After all the value of any objects is only as great as what people are willing to pay for it. Hence, being able to model market opinions and how they might impact the stock price is an interesting endeavor.
 
