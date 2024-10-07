@@ -34,6 +34,8 @@ Stonk.Init_MarketOpinion(0.5)
 Stonk.set_evolver("G")
 Stonk.price_time_evolve(cycles)
 Stonk.plot_probs()
+plt.savefig("figs/probabilities_example.pdf")
 Stonk.plot_stonks()
+plt.savefig("figs/stock_example.pdf")
 
 
