@@ -140,7 +140,7 @@ class MarketOpinionModel:
         plt.ylabel("Probabilities")
         plt.legend()
         if save == 1:
-            plt.savefig("figs/"+name+".pdf")
+            plt.savefig("figs/"+name+".png")
         plt.show() 
 
     # Plots the evolution of mu as a function of discrete time
@@ -154,7 +154,7 @@ class MarketOpinionModel:
         plt.xlabel("discrete time")
         plt.ylabel(r"$\mu/\sigma$")
         if save == 1:
-            plt.savefig("figs/"+name+".pdf")
+            plt.savefig("figs/"+name+".png")
         plt.show()         
 
 
@@ -189,5 +189,5 @@ class StandardStockModel(MarketOpinionModel):
         plt.ylabel("Stock price")
         plt.legend()
         if save == 1:
-            plt.savefig("figs/"+name+".pdf")
+            plt.savefig("figs/"+name+".png")
         plt.show() 
