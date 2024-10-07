@@ -4,10 +4,10 @@ This is my personal hobby project, where I try to model market opinions as a fou
 
 While I have no formal education in financial markets and capital management they are an interest of mine, which began when I first read the book "Capital in the twenty-first century" by French economist Thomas Piketty. 
 
-![Image1](/scr/figs/probabilities_example.png "Example of market opinion evolution")
+![Image1](/scr/figs/probabilities_example.png =100x20)
 
 
-![Image2](/scr/figs/stock_example.png "Corrsponding stock evolution with said market opinion")
+![Image2](/scr/figs/stock_example.png =100x20)
 
 
 ### Goals
