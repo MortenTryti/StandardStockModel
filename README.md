@@ -4,10 +4,13 @@ This is my personal hobby project, where I try to model market opinions as a fou
 
 While I have no formal education in financial markets and capital management they are an interest of mine, which began when I first read the book "Capital in the twenty-first century" by French economist Thomas Piketty. 
 
-![Image1](/scr/figs/probabilities_example.png =100x20)
+Examples of what the code currently can produce is shown below in the following two figures. The first is the market opinion of the financial asset and the second is the price of the asset. As you can see the 
 
 
-![Image2](/scr/figs/stock_example.png =100x20)
+
+<img src= "scr/figs/probabilities_example.png" width=60% height=60%>
+
+<img src= "scr/figs/stock_example.png" width=60% height=60%>
 
 
 ### Goals
