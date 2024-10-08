@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 
 
 class MarketOpinionModel:
-    def __init__(self,volitility,mu):
+    def __init__(self,volatility,mu):
         """
         INPUT:
-            volitility: "low", "moderate" and "high"
+            volatility: "low", "moderate" and "high"
             mu_shift: Any value, shifts the median as a percentage of the standard deviation, 
                       good values are between -1 and 1. Higher values also work.
         
@@ -14,18 +14,18 @@ class MarketOpinionModel:
         # To store the probability values
         self.buychanceList = []
         self.NobuychanceList = []
-        #volitility parameter should either be "low", "moderate" or "high"
-        if volitility == "low":
-            self.Market_volitility = 0
-        elif volitility == "medium":
-            self.Market_volitility = 1
-        elif volitility == "high":
-            self.Market_volitility = 2
+        #volatility parameter should either be "low", "moderate" or "high"
+        if volatility == "low":
+            self.Market_volatility = 0
+        elif volatility == "medium":
+            self.Market_volatility = 1
+        elif volatility == "high":
+            self.Market_volatility = 2
         else:
-            raise ValueError("Assigned bad value to volitility. Should be strings low, medium or high.")
+            raise ValueError("Assigned bad value to volatility. Should be strings low, medium or high.")
         
         #Pick mean and standard deviation for normal distribution
-        self.sigma = 0.001 *10**(self.Market_volitility)
+        self.sigma = 0.001 *10**(self.Market_volatility)
         self.mu = mu
         #To store the values of mu if it updates
         self.mulist = [self.mu]
@@ -68,9 +68,9 @@ class MarketOpinionModel:
                 #Update values
                 self.buyprob += self.randVar
                 self.nobuyprob = 1-self.buyprob
-                #Append values
-                self.buychanceList.append(self.buyprob)
-                self.NobuychanceList.append(self.nobuyprob)
+            #Append values
+            self.buychanceList.append(self.buyprob)
+            self.NobuychanceList.append(self.nobuyprob)
         elif nrcycles>1:
             for i in range(nrcycles):
                 #Picks random variable from normal distribution
@@ -79,9 +79,9 @@ class MarketOpinionModel:
                     #Update values 
                     self.buyprob += self.randVar
                     self.nobuyprob = 1-self.buyprob
-                    #Append values
-                    self.buychanceList.append(self.buyprob)
-                    self.NobuychanceList.append(self.nobuyprob)
+                #Append values
+                self.buychanceList.append(self.buyprob)
+                self.NobuychanceList.append(self.nobuyprob)
     
     #Should update the mu value
     def mu_updater(self,regulator = 2) -> None:
@@ -89,7 +89,7 @@ class MarketOpinionModel:
         self.mu = self.mu/regulator
         #This list contains the percentage of the std that mu is going to move
         mu_list = [0,0.005,0.01,0.015,0.02,0.025,0.1,0.2]
-        # This list contains the probability of picking and item in mu_list
+        # This list contains the probability of picking an item in mu_list
         list_prob = [0.50,0.195,0.1,0.1,0.05,0.05,0.0025,0.0025]
         #Picking the element of mu_list
         mu_update = np.random.choice(mu_list,p = list_prob)
@@ -113,9 +113,9 @@ class MarketOpinionModel:
                 #Update values
                 self.buyprob += self.randVar
                 self.nobuyprob = 1-self.buyprob
-                #Append values
-                self.buychanceList.append(self.buyprob)
-                self.NobuychanceList.append(self.nobuyprob)
+            #Append values
+            self.buychanceList.append(self.buyprob)
+            self.NobuychanceList.append(self.nobuyprob)
             self.mu_updater()
         elif nrcycles>1:
             for i in range(nrcycles):
@@ -125,9 +125,9 @@ class MarketOpinionModel:
                     #Update values 
                     self.buyprob += self.randVar
                     self.nobuyprob = 1-self.buyprob
-                    #Append values
-                    self.buychanceList.append(self.buyprob)
-                    self.NobuychanceList.append(self.nobuyprob)
+                #Append values
+                self.buychanceList.append(self.buyprob)
+                self.NobuychanceList.append(self.nobuyprob)
                 self.mu_updater()
     def plot_probs(self, save=0,name="1") -> None:
         # Just plots the probabilities
@@ -159,10 +159,10 @@ class MarketOpinionModel:
 
 
 class StandardStockModel(MarketOpinionModel):
-    def __init__(self,InitValue,volitility,mu):
+    def __init__(self,InitValue,volatility,mu):
         self.Value = InitValue
         self.ValueList = []
-        super().__init__(volitility,mu)
+        super().__init__(volatility,mu)
 
     def price_time_evolve(self,priceCycles = 1) -> None:
         self.priceCycles = priceCycles
