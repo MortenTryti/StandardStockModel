@@ -116,9 +116,9 @@ $$ O_{i+1} = O_i + X $$
 
 Because market opinion typically shifts gradually and continuously, selecting an appropriate probability distribution is critical. There should be a low, but non-zero, probability of larger jumps in opinion, reflecting rare but impactful events. Historical examples, like the rapid sentiment changes following Elon Musk's tweets or the sharp rise of companies like Nvidia and GameStop, demonstrate that large shifts can indeed happen.
 
-Next, the model updates the asset price. At time $t = i$, the asset price is denoted by $\mathcal{V}_i$. A change in price, $d\mathcal{V}$, is drawn from a price distribution $P_c(\rho)$. The direction of the price change is determined by a multiplicative factor, $\eta$, which can be either 1 (indicating an increase) or -1 (indicating a decrease). The probability $P_u$ that $\eta = 1$ (price increases) is directly linked to the market opinion at time $i$, such that $P_u = O_i$. Consequently, the probability of a price decrease is $P_d = 1 - O_i$, as the probabilities must sum to one. The asset price is then updated using the formula:
+Next, the model updates the asset price. At time $t = i$, the asset price is denoted by $\mathcal{V}_i$. A percentage change in price, $d\mathcal{V}$, is drawn from a price distribution $P_c(\rho)$. The direction of the price change is determined by a multiplicative factor, $\eta$, which can be either 1 (indicating an increase) or -1 (indicating a decrease). The probability $P_u$ that $\eta = 1$ (price increases) is directly linked to the market opinion at time $i$, such that $P_u = O_i$. Consequently, the probability of a price decrease is $P_d = 1 - O_i$, as the probabilities must sum to one. The asset price is then updated using the formula:
 
-$$ \mathcal{V}_{i+1} = \mathcal{V}_i + \eta d\mathcal{V} $$
+$$ \mathcal{V}_{i+1} = \mathcal{V}_i(1 + \eta d\mathcal{V}) $$
 
 This process is repeated for as many cycles as specified, iterating over each time step.
 
@@ -219,7 +219,7 @@ This method simulates the asset price evolution over discrete time steps. The pr
 
 3. The asset value is updated as follows: 
 
-$$ \mathcal{V}_{i+1} = \mathcal{V}_i + \eta d\mathcal{V} $$
+$$ \mathcal{V}_{i+1} = \mathcal{V}_i(1 + \eta d\mathcal{V}) $$
 
 This process repeats for the number of cycles specified by the `priceCycles` argument, simulating changes in the asset price over time based on stochastic changes in both magnitude ($dV$) and direction ($\eta$).
 
