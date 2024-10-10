@@ -22,7 +22,7 @@ The core mechanics of the model are driven by stochastic differential equations 
 
 The interaction between these two variables allows for emergent behaviors that are often observed in real financial markets, such as bubbles (when prices inflate based on overly optimistic sentiment) or corrections (when prices fall despite strong sentiment due to external factors).
 
-Model Output and Interpretation
+## Model Output and Interpretation
 The output of the model provides insights into how market sentiment and asset prices co-evolve. Below, you will find two visualizations produced by the model:
 
 ### Figure 1 – Market Sentiment Over Time:
@@ -52,7 +52,7 @@ Additional concrete goals for the project are presented in the following list.
 
 1. **Incorporate Real-World Market Data**
 * **Goal:** Integrate real stock market data into the model to compare simulated market sentiment with real-world trends.
-* **Why:** This would allow you to validate your model by seeing how well it predicts actual market behavior. You could also use real-world data to fine-tune the model and improve its accuracy.
+* **Why:** This would allow us to validate our model by seeing how well it predicts actual market behavior. We could also use real-world data to fine-tune the model and improve its accuracy.
 
 2. **Enhance the Complexity of Market Sentiment**
 * **Goal:** Introduce more complex variables into the model, such as news sentiment analysis, macroeconomic indicators (interest rates, inflation), or industry-specific trends.
@@ -61,7 +61,7 @@ Additional concrete goals for the project are presented in the following list.
 
 3. **Incorporate Machine Learning Models**
 * **Goal:** Implement machine learning algorithms (e.g., random forests, neural networks) to predict market sentiment and price changes.
-* **Why:** Using advanced ML techniques could improve the predictive accuracy of your model and enable it to capture non-linear relationships that traditional statistical methods might miss.
+* **Why:** Using advanced ML techniques could improve the predictive accuracy of our model and enable it to capture non-linear relationships that traditional statistical methods might miss.
 
 4. **Simulate Extreme Market Events**
 **Goal:** Model extreme market scenarios (e.g., crashes, bubbles, or unexpected shocks) to study how sentiment evolves during periods of high volatility.
@@ -74,7 +74,7 @@ Additional concrete goals for the project are presented in the following list.
 
 6. **Explore Behavioral Finance Elements**
 * **Goal:** Integrate elements of behavioral finance, such as herd behavior, overconfidence, or panic selling, to see how they influence market sentiment and prices in the model.
-* **Why:** Behavioral factors can significantly affect market outcomes, and incorporating these would enhance the realism of your model and allow you to explore psychological impacts on pricing.
+* **Why:** Behavioral factors can significantly affect market outcomes, and incorporating these would enhance the realism of our model and allow us to explore psychological impacts on pricing.
 
 7. **Implement Multi-Asset Modeling**
 * **Goal:** Expand the model to simulate a portfolio of assets and observe how sentiment about one asset might influence others (e.g., contagion effect).
@@ -89,7 +89,7 @@ Additional concrete goals for the project are presented in the following list.
 
 10. **Develop a Risk Management Tool**
 * **Goal:** Extend the model to provide risk metrics (e.g., Value at Risk (VaR), Sharpe Ratio) based on the predicted stock prices and sentiment trends.
-* **Why:** Investors and financial institutions could use these metrics to evaluate the risk associated with holding certain stocks, providing another practical application of your model.
+* **Why:** Investors and financial institutions could use these metrics to evaluate the risk associated with holding certain stocks, providing another practical application of our model.
 
 
 ## Why develop a data-generation model when there is so much data out there already?
