@@ -191,3 +191,28 @@ class StandardStockModel(MarketOpinionModel):
         if save == 1:
             plt.savefig("figs/"+name+".png")
         plt.show() 
+    
+    def plot_CMO_value(self,save = 0, name = "1") -> None:
+        # plots the market value and CMO in a single plot
+        fig, ax = plt.subplots(2)
+        #Plotting CMO
+        T1 = len(self.buychanceList)
+        time1 = np.arange(0,T1)
+        ax[0].plot(time1,1-np.array(self.buychanceList), label = "Negative CMO")
+        ax[0].plot(time1,self.buychanceList, label ="Positive CMO")
+        
+        ax[0].set_ylabel("CMO probability")
+        ax[0].set_xlabel("Discrete time")
+        ax[0].grid()
+        ax[0].legend()
+        # Plotting asset value
+        T = len(self.ValueList)
+        time = np.arange(0,T)
+        ax[1].plot(time,self.ValueList,label = "Test AS")
+        ax[1].set_ylabel("Asset value")
+        ax[1].set_xlabel("Discrete time")
+        ax[1].grid()
+        ax[1].legend()
+        if save == 1:
+            plt.savefig("scr/"+name + ".png")
+        plt.show()

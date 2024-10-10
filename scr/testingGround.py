@@ -29,12 +29,12 @@ MarketOpinions.muplot()
 MarketOpinions.plot_probs()
 #Opinions.plot_probs()
 """
-Stonk = StandardStockModel(200,"low",0)
+Stonk = StandardStockModel(200,"medium",0)
 Stonk.Init_MarketOpinion(0.5)
-Stonk.set_evolver("G")
+Stonk.set_evolver("AG")
 Stonk.price_time_evolve(cycles)
-Stonk.plot_probs(save = 1,name = "probabilities_example")
-Stonk.plot_stonks(save = 1, name = "stock_example")
+Stonk.plot_CMO_value()
+
 
 
 
