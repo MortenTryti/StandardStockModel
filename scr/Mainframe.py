@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from StatisticalExpansion.StatEx import StatEx
+
 
 
 class MarketOpinionModel:
@@ -164,6 +166,13 @@ class StandardStockModel(MarketOpinionModel):
         self.ValueList = []
         super().__init__(volatility,mu)
 
+    def set_asset_evolver(self,evolver):
+        if evolver == "PTE":
+            self.asset_evolution = self.price_time_evolve
+        elif evolver == "TPTE":
+            self.asset_evolution = self.tempered_price_time_evolve 
+
+    #Evolves the price of the financial asset and the market opinion
     def price_time_evolve(self,priceCycles = 1) -> None:
         self.priceCycles = priceCycles
         for i in range(priceCycles):
@@ -179,6 +188,60 @@ class StandardStockModel(MarketOpinionModel):
             self.ValueList.append(self.Value)
             self.Market_evolver()
 
+    #Evolves the price of the financial asset and the market opinion
+    def tempered_price_time_evolve(self,priceCycles = 1) -> None:
+        self.priceCycles = priceCycles
+        for i in range(priceCycles):
+            #Pick price change
+            self.price_change = np.random.choice([0.01,0.02,0.03,0.04,0.05],p=[0.2,0.3,0.3,0.1,0.1])
+            
+            #Next pick if stock go up or down based on opinion
+            positive = self.buyprob
+            #directionFactor is either +1 of -1 and is based on the market opinion
+            self.directionFactor = np.random.choice([-1,1],p=[1-positive,positive])
+            
+            """ Here I should impliment how the market is tempered by constant upswings. 
+
+            * A positiv opinion of the market should drive up the price, as the price becomes driven up the market
+            opinion should reduce down towards 0.5 as no rational investor expects the price to grow to the heavens. Hence we should 
+            find some method of tempering the expectations as the price evolves. One method would be to look at the numerical derivative of 
+            the price evolution, as long as there is a positive price evolution of the asset, the opinion should be iteratively lowered by some
+            amount. The same should be for negative growth, negative growth comes from the market having the opinion that the asset is overpriced,
+            but as the price evolves downwards, it should increase the market opinion of the asset. Need to think of good ways to model this behaviour.
+            
+            """
+
+            self.Value += self.directionFactor * self.price_change * self.Value
+            
+            self.ValueList.append(self.Value)
+            self.Market_evolver()
+
+    def generate_data(self,initvalue,init_prob=-1, data_amount=1, pricecycles = 1) -> np.array:
+        # Array to store data
+        pricings = np.zeros((data_amount,pricecycles+1,2))
+
+        # For loop to generate data
+        for i in range(data_amount):
+            #intialise values and add them to list
+            self.Value = initvalue
+            self.ValueList = [initvalue]
+            if init_prob == -1:
+                self.buyprob = np.random.uniform(0.3,0.7)
+                self.nobuyprob = 1 - self.buyprob
+                self.buychanceList = [self.buyprob]
+                self.NobuychanceList = [self.nobuyprob] 
+            else: 
+                self.buyprob = init_prob
+                self.nobuyprob = 1 - self.buyprob
+                self.buychanceList = [self.buyprob]
+                self.NobuychanceList = [self.nobuyprob] 
+            self.asset_evolution(pricecycles)
+            #Storing list in array
+            pricings[i,:,0] = self.ValueList
+            pricings[i,:,1] = self.buychanceList
+        return pricings
+
+
     def plot_stonks(self,save = 0, name = "1") -> None:
         # Plots stock value
         T = len(self.ValueList)
@@ -192,7 +255,7 @@ class StandardStockModel(MarketOpinionModel):
             plt.savefig("figs/"+name+".png")
         plt.show() 
     
-    def plot_CMO_value(self,save = 0, name = "1") -> None:
+    def plot_CMO_and_value(self,save = 0, name = "1") -> None:
         # plots the market value and CMO in a single plot
         fig, ax = plt.subplots(2)
         #Plotting CMO
