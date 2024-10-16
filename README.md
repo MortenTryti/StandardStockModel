@@ -1,5 +1,5 @@
 # StandardStockModel
-This is a personal hobby project where I attempt to model market sentiment as a basis for evaluating stock prices. In addition, I’ve implemented tools for statistical analysis that help explore market behaviors.
+This is a personal hobby project where I attempt to model market sentiment as a basis for evaluating stock prices. In addition, I also wish to implement tools for statistical analysis that help explore market behaviors.
 
 Although I have no formal education in financial markets or capital management, they are a strong interest of mine. This interest began after reading Capital in the Twenty-First Century by French economist Thomas Piketty. My background is in theoretical physics, but I find economics to be just as intriguing!
 
@@ -8,12 +8,13 @@ Although I have no formal education in financial markets or capital management, 
 The core of this project is to model and understand the dynamics of market sentiment (or "opinion") and how it influences stock prices over time. The model is designed to capture key investor behaviors and market reactions using principles of stochastic processes, with a focus on how market sentiment evolves and its subsequent effect on asset valuation.
 
 ### Key Assumptions
-A foundational assumption in financial theory, and one incorporated into this model, is that when market sentiment rises, it is typically because investors expect the underlying asset to increase in value. This expectation, in turn, drives more investors to buy the asset, further pushing up its price. The key behavior here is the feedback loop between sentiment and price: **positive sentiment** leads to **buying pressure**, which often results in a higher market price.
+A foundational assumption in financial theory, and one incorporated into this model, is that when market sentiment rises, it is typically because investors expect the underlying asset to increase in value, they have an "expectation" so to speak. Hence we wish to model a system with a market expectation and some financial asset for which to have an expectation of. 
+ I also have the hypothesis that the expectation can sometimes drive more investors to buy the asset, further pushing up its price. It should be noted that this hypothesis is not always true, for a set of actors who have an opinion that the asset is a bad financial investment, someone else buying it will probably not sway their opinion too much, but a rapid increase in purchases might convince the investors who are on the fence. The key behavior is also something I would like to model as a feedback loop between sentiment and price: **positive sentiment** leads to **buying pressure**, which often results in a higher market price.
 
-However, this assumption doesn't guarantee accuracy all the time. There are notable instances where investor expectations exceed actual asset performance, leading to overvaluation. The model accounts for this by incorporating stochastic elements — random fluctuations in market opinion and value — which means that while the asset’s price generally follows market sentiment, there is still room for volatility and deviations from expectations.
+However, the first assumption of a positive market expectation leading to higher prices doesn't guarantee accuracy all the time. There are notable instances where investor expectations exceed actual asset performance, leading to overvaluation. The model accounts for this by incorporating stochastic elements — random fluctuations in market opinion and value — which means that while the asset’s price generally follows market sentiment, there is still room for volatility and deviations from expectations.
 
 ### Model Implementation
-The core mechanics of the model are driven by stochastic differential equations (SDEs), which simulate the randomness inherent in financial markets. These equations are used to model both the evolution of **market sentiment** and the **asset price** over time. Specifically:
+The core mechanics of the model are driven by stochastic difference equations (SDEs), which in some instances can be approximations of stochastic differential equations, which simulate the randomness inherent in financial markets. These equations are used to model both the evolution of **market sentiment** and the **asset price** over time. Specifically:
 
 * **Market Sentiment (Opinion):**
  This is modeled as a time-dependent stochastic process, representing how investor confidence or expectations about the asset change over time. It can fluctuate based on various factors, such as market news, external economic conditions, or investor psychology. The sentiment typically trends upward when the asset is perceived to perform well, but short-term fluctuations are common.
