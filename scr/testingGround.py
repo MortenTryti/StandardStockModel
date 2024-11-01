@@ -9,7 +9,7 @@ import StatisticalExpansion as STT
 
 
 
-print(STT.StatEx(2).Poisson_dist(1,6))
+#print(STT.StatEx(2).Poisson_dist(1,6))
 
 
 
@@ -41,18 +41,20 @@ MarketOpinions.Gaussian_MarketOpinion_evolver(cycles)
 MarketOpinions.muplot()
 MarketOpinions.plot_probs()
 #Opinions.plot_probs()
-"""
 
-Stonk = StandardStockModel(200,"low",0)
+
+Stonk.asset_evolution(500)
+Stonk.plot_CMO_and_value()"""
+
+
+Stonk = StandardStockModel(200,"medium",0)
 Stonk.Init_MarketOpinion(1/2)
 Stonk.set_evolver("AG")
 Stonk.set_asset_evolver("TPTE")
 
-
-
 cyc = 365*4-1
 datanr = 5
-A = Stonk.generate_data(200,-1,datanr,cyc)
+A = Stonk.generate_data(400,-1,datanr,cyc)
 
 t = np.arange(0,cyc+1)
 
@@ -70,6 +72,4 @@ for i in range(datanr):
 plt.legend()
 plt.grid()
 plt.show()
-
-
 

@@ -250,3 +250,72 @@ This method generates and optionally saves a plot that shows the asset's value a
 
 
 
+### Code examples to test methods
+All of the following examples requires numpy and matplotlib.pyplot to be imported.
+
+
+
+* Testing the MarketOpinionModel:
+```
+MarketOpinions = MarketOpinionModel("low",mu= 0)
+
+MarketOpinions.Init_MarketOpinion(0.5)
+
+MarketOpinions.set_evolver("AG")
+
+MarketOpinions.Market_evolver(cycles)
+
+MarketOpinions.muplot()
+MarketOpinions.plot_probs()
+#Opinions.plot_probs()
+```
+
+* Testing the StandardStockModel (SSM):
+```
+# General initialisation
+Stonk = StandardStockModel(200,"medium",0)
+#Set initial marketopinion
+Stonk.Init_MarketOpinion(1/2)
+#Set opinion evolver 
+Stonk.set_evolver("AG")
+# Set the financial asset evolver
+Stonk.set_asset_evolver("TPTE")
+
+# Evolve the asset for 500 cycles
+Stonk.asset_evolution(500)
+
+#Using a memberfunction to visualise the CMO and asset value
+Stonk.plot_CMO_and_value()
+```
+
+* Example code for generating data from SSM and visualising it:
+
+```
+
+Stonk = StandardStockModel(200,"medium",0)
+Stonk.Init_MarketOpinion(1/2)
+Stonk.set_evolver("AG")
+Stonk.set_asset_evolver("TPTE")
+
+cyc = 365*4-1
+datanr = 5
+A = Stonk.generate_data(200,-1,datanr,cyc)
+
+t = np.arange(0,cyc+1)
+
+fig, axs = plt.subplots(2)
+
+for i in range(datanr):
+    axs[0].plot(t,A[i,:,0], label = f"{i}")
+
+axs[0].grid()
+axs[0].legend()
+
+for i in range(datanr):
+    axs[1].plot(t,A[i,:,1], label = f"{i}")
+
+plt.legend()
+plt.grid()
+plt.show()
+
+```

@@ -208,8 +208,17 @@ class StandardStockModel(MarketOpinionModel):
             the price evolution, as long as there is a positive price evolution of the asset, the opinion should be iteratively lowered by some
             amount. The same should be for negative growth, negative growth comes from the market having the opinion that the asset is overpriced,
             but as the price evolves downwards, it should increase the market opinion of the asset. Need to think of good ways to model this behaviour.
-            
             """
+
+            # Here the tempering happens, this solution is temporary and should be reflected on
+            p = 0.05
+            CMO_mu = 1/2
+            """
+            In this update I could make the CMO_mu into an input parameter, as well as perhaps a stochastic variable which
+            would change in time as the expected (perfect/ideal) median of the CMO.
+            """
+            self.buyprob = self.buyprob - self.directionFactor *p * np.abs(CMO_mu-self.buyprob) 
+            self.nobuyprob = 1-self.buyprob
 
             self.Value += self.directionFactor * self.price_change * self.Value
             
