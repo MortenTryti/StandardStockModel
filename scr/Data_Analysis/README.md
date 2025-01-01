@@ -5,10 +5,12 @@ Current attempt to take a database of stock prices from NASDAQ from about 1999 t
 
 
 ### Volatility markers
-The current markers are set arbitrarily,
+The current markers are set arbitrarily and could definitely be improved by actual expertise in the field of measures of stock volatility.
 *  **Low volatility:** $<2.5\%$ avg price change of financial asset.
 * **Medium volatility:** Between $2.5\%$ to $5.0\%$ avg price change of financial asset.
 * **High volatility:** Above $5.0\%$ avg price change of financial asset.
+
+The following table shows the probability distributions I have obtained from my analysis of the NASDAQ dataset.
 
 
 | Price change %      | Low volatility      |   Medium volatility        |     High volatility |
@@ -42,3 +44,10 @@ The current markers are set arbitrarily,
 | 13.0 | 4.78532857e-07 |  0.00000000e+00 |2.11983423e-04|
 | 13.5 |  1.59510952e-07 | 0.00000000e+00 |2.43780936e-04|
 | <14.0 | 8.03935199e-05 | 1.58371041e-02 | 4.23945647e-01 |
+
+
+
+
+### Notes
+* I am not sure that this is a good way of gauging volatility of some financial asset, but as of now it is good enough. 
+* It is a bit strange that there is a range of zero values at the tail of the medium volatility distribution, but at this point I simply have to trust the data. Additionally, it is reassuring to see that the $<14\%$ probability goes up for higher volatility. 
