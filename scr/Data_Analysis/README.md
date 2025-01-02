@@ -31,6 +31,9 @@ The current thresholds are set arbitrarily and could definitely be improved by a
 * **Medium volatility:** $6\% < V \leq 12\%$ volatility of financial asset.
 * **High volatility:** $12\%<V$ volatility of financial asset.
 
+
+## Results: NASDAQ Probability Distributions
+
 The following table shows the probability distributions I have obtained from my analysis of the NASDAQ dataset. By the letter $P$ we mean probability distribution.
 
 
