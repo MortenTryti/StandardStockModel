@@ -1,11 +1,26 @@
-# NASDAQ probability distributions for daily stock price change
 
-Current attempt to take a database of stock prices from NASDAQ from about 1999 to 2020 from [here](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data) and find reasonable percentage price changes for different levels of stock volatility.
+# NASDAQ Probability Distributions for Daily Stock Price Changes
+
+This project analyzes a NASDAQ stock price dataset (1999–2020) to determine the probability distributions of percentage price changes across different levels of stock volatility. The dataset can be found on [Kaggle](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data).
+
+In this analysis, **volatility** refers to **daily volatility**, categorized into three tiers: **low**, **medium**, and **high**. Volatility is measured as the standard deviation of daily stock prices.
+
+---
+
+
+## Volatility Definition and Calculation
+Volatility $V$ is calculated using the formula:
 
 When discussing stock volatility I will from this point out refer to the **daily volatility** as simply **volatility**. Further I will create three categories **Low, medium** and **high volatility**, where the different markers can be found below. In finance when we refer to the volatility what we actually mean is the square root of the variance, hence for a stock $S$, given a dataset $D$ of $n$ subsequent daily stock prices of $S$ the volatility $V$ for the given stock is simply
 
 $$V = \sqrt{Var(D)} = \sqrt{\frac{1}{n-1}\sum_{i=1}^n \left(D_i- \hat D\right)^2},$$
-where $\hat D$ is the average stock price of the dataset $D$ and $D_i$ is the price at the $i$'th day. In essence the volatility is the same as the standard deviation $\sigma$ in statistics. 
+
+Where again:
+- $D$: Dataset of daily stock prices
+- $\hat{D}$: Mean of the dataset
+- $D_i$: Price on the $i^{th}$ day
+- $n$: Number of daily prices in the dataset.
+
 
 
 
@@ -19,7 +34,7 @@ The current thresholds are set arbitrarily and could definitely be improved by a
 The following table shows the probability distributions I have obtained from my analysis of the NASDAQ dataset. By the letter $P$ we mean probability distribution.
 
 
-| Price change %      | Low volatility  $P$     |   Medium volatility $P$        |     High volatility $P$ |
+| Price change (%)      | Low Volatility  $P$     |   Medium Volatility $P$        |     High Volatility $P$ |
 | ------------- | ------------- |    -------------  | -----    |
 | 0.0 |9.99860713e-01  | 9.97729350e-01 | 9.01952363e-01 |
 | 0.5 | 1.22894428e-04 | 1.77354594e-03   | 2.24995760e-03|
@@ -54,9 +69,18 @@ The following table shows the probability distributions I have obtained from my 
 
 
 
-### Notes
-* I am not sure that this is a good way of gauging volatility of some financial asset, but as of now it is good enough. Given the structure of the code, it should be easy to find a new probability distribution given more realistic thresholds. 
-* For the high volatility distribution I really expected a different distribution, but if this is what the data tells us, then it either must be true, or I have done a bad job of splitting the relevant data. 
+### Notes and Observations
+1. **Volatility Measurement:** 
+    - The current thresholds are arbitrary and can benefit from domain expertise for refinement.
+    - Adjusting thresholds would require recalculating the distributions.
+
+2. **Data Irregularities:**
+    - Anomalies such as assets with only a single price point may cause errors in variance calculation.
+
+3. **High Volatility Distributions:**
+    - Contrary to expectations, the high volatility distribution suggests a behavior that might either reflect the dataset's reality or issues in data preprocessing.
+
+---
 
 
 
@@ -70,3 +94,7 @@ For any programmers reading this, this is essentially the true README as I will 
 3. Thirdly you must run ``` Data_format.py ``` to extract the open prices for each asset and write it to a .txt file, reducing the time it takes to actually extract and do something useful with this data. 
 
 4. Then we are finally ready to run ``` Percentage_finder.py ```, after running this it will output the probability distributions for the different levels of volatility. These are all the steps really needed. When running this program an error message will appear, this is due to the irregularity of the data, in the sense that there is one asset which only contains one open price. Thus calculating the variance really makes little sense. 
+
+
+
+
