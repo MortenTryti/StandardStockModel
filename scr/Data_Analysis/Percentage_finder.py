@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from tqdm import tqdm
+import os
 """
 In this code we find the discrete probability distribution for percentage asset changes
 for three levels of volatility. The data is gathered from the NASDAQ stocks.
@@ -52,33 +53,39 @@ def historgram_categoriser(number_list, histo_list):
                 histo_list[-1] +=1
 #TODO make plot of the different stock distributions separatd by volatility
 
+# This is a terrible way to do this, I am so sorry for anyone reading this :)
+i = 0
+with open("price_open.txt", "r") as f:
+    size=len([0 for _ in f])
     
 with open("price_open.txt", "r") as infile:
-    for line in infile:
+    
+    for line in infile:#tqdm(infile,total=size, desc="Loading..." ):
+        i+=1
         p_change = []
-        line = infile.readline() 
+        #line = infile.readline() 
         floatList = list(map(float,line.split()))
         p_change = percentage_converter(floatList)
-        p_change_avg = np.mean(np.array(p_change))
+        p_change_avg = np.sqrt(np.var(np.array(p_change)))
         """
-        QUESTION: Should we rather use the second cumulant/variance to separate the stocks?
+        Here we separate the stocks into low, medium or high volatility
         """
-        if p_change_avg <=0.025:
+        if p_change_avg <=0.06:
             historgram_categoriser(p_change,Lowcounter)
-            plt.figure(1)
-            plt.plot(p_change)
+            #plt.figure(1)
+            #plt.plot(p_change)
             Lowhisto.append(p_change)
-        elif 0.025<p_change_avg <=0.05:
+        elif 0.06<p_change_avg <=0.12:
             historgram_categoriser(p_change,Mediumcounter)
-            plt.figure(2)
-            plt.plot(p_change)
+            #plt.figure(2)
+            #plt.plot(p_change)
             Mediumhisto.append(p_change)
-        elif 0.05<p_change_avg:
+        elif 0.12<p_change_avg:
             historgram_categoriser(p_change,Highcounter)
-            plt.figure(3)
-            plt.plot(p_change)
+            #plt.figure(3)
+            #plt.plot(p_change)
             Highhisto.append(p_change)
-plt.show()
+#plt.show()
 """
 While the three following assets are not used they could be later if we wish to explore the
 true distiributions futher as they contain all the percentage changes for each levels. 
@@ -86,12 +93,11 @@ true distiributions futher as they contain all the percentage changes for each l
 plotLowHisto = list(np.concatenate(Lowhisto)) 
 plotMediumHisto = list(np.concatenate(Mediumhisto))
 plotHighHisto = list(np.concatenate(Highhisto))
-
+plt.hist(Lowhisto,bins=[i*dp for i in range(pUpper)]+[1e37])
 
 print(np.array(Lowcounter)/np.sum(np.array(Lowcounter)))
 print(np.array(Mediumcounter)/np.sum(np.array(Mediumcounter)))
 print(np.array(Highcounter)/np.sum(np.array(Highcounter)))
-
 
         
     
