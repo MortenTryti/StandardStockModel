@@ -285,12 +285,18 @@ Having found the current distributions the next question is how do we deal with 
 
  * **Problem** We have however, at this point no current method for finding what value the new asset price actually moves to. There are however, multiple solutions to this problem, and we present one of them here:
  
- * **Solution** If we go with the Bayesian perspective, since we have no information on what the new asset price should actually be, expect that it should be in the interval $\mathcal V$ we argue that any value in the interval is as good as any other, hence we can pick the new value from a uniform distribution of the aforementioned interval. However, as the StandardStockModel already contains a method for deciding if the price goes up or down, we should simply pick a value chang using a uniform distribution from the interval $$ \mathcal P_+ =[p_i,p_i+dp],$$
+ * **Solution** If we go with the Bayesian perspective, since we have no information on what the new asset price should actually be, expect that it should be in the interval $\mathcal V$ we argue that any value in the interval is as good as any other, hence we can pick the new value from a uniform distribution of the aforementioned interval. However, as the StandardStockModel already contains a method for deciding if the price goes up or down, we should simply pick a value change using a uniform distribution from the interval
+ 
+   $$ \mathcal P_+ =[p_i,p_i+dp],$$
+ 
     and find the new asset price $V_{i+1}$ as 
-    $$V_{i+1} = V_i(1+\eta dV),$$
+ 
+    $$V_{i+1} = V_i(1+\eta dV),$$ 
+ 
     where:
+
     * $V_i$ is the current asset price,
-    * $\eta$ is either $\pm1$ and is drawn from the cumulative market opinion,
+    *  $\eta$ is either $\pm1$ and is drawn from the cumulative market opinion,
     * $dV$ is the percentage drawn from the interval $\mathcal P_+$ which itself is drawn from the NASDAQ probability distribution shown in the tables above.
 
 
