@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+from tabulate import tabulate
 import os
 """
 In this code we find the discrete probability distribution for percentage asset changes
@@ -10,10 +11,10 @@ for three levels of volatility. The data is gathered from the NASDAQ stocks.
 
 
 
-dp = 0.5 # Binsizes
-pUpper = 14 # Upper value of bin
+dp = 0.1 # Binsizes
+pUpper = 20 # Upper value of bin
 npoints = int(pUpper/dp) # Number of bins - 1, true number of bins is this and one more truncation bin
-binsss = [i*dp for i in range(npoints+1)]
+
 Lowcounter = np.zeros(npoints+1) # Use this if avg % change is below 2.5
 Lowhisto = []
 Mediumcounter = np.zeros_like(Lowcounter+1) # Use this if avg % change is between 2.5 and 5.0
@@ -32,7 +33,7 @@ def percentage_converter(floatList):
         if floatList[i] == 0:
             p_asset_change = 0
         else:
-            p_asset_change = floatList[i+1]/floatList[i]-1
+            p_asset_change = np.abs(floatList[i+1]/floatList[i]-1)
         p_change.append(p_asset_change)
     return p_change 
 
@@ -54,14 +55,14 @@ def historgram_categoriser(number_list, histo_list):
 #TODO make plot of the different stock distributions separatd by volatility
 
 # This is a terrible way to do this, I am so sorry for anyone reading this :)
-i = 0
+
 with open("price_open.txt", "r") as f:
     size=len([0 for _ in f])
     
 with open("price_open.txt", "r") as infile:
     
-    for line in infile:#tqdm(infile,total=size, desc="Loading..." ):
-        i+=1
+    for line in tqdm(infile,total=size, desc="Loading..." ):
+        
         p_change = []
         #line = infile.readline() 
         floatList = list(map(float,line.split()))
@@ -93,11 +94,29 @@ true distiributions futher as they contain all the percentage changes for each l
 plotLowHisto = list(np.concatenate(Lowhisto)) 
 plotMediumHisto = list(np.concatenate(Mediumhisto))
 plotHighHisto = list(np.concatenate(Highhisto))
-plt.hist(Lowhisto,bins=[i*dp for i in range(pUpper)]+[1e37])
 
-print(np.array(Lowcounter)/np.sum(np.array(Lowcounter)))
-print(np.array(Mediumcounter)/np.sum(np.array(Mediumcounter)))
-print(np.array(Highcounter)/np.sum(np.array(Highcounter)))
+data_bins = [i*dp for i in range(npoints)]+[1e37]
+
+#plt.hist(plotLowHisto,bins=data_bins)
+#plt.show()
+
+
+#Here we find the three probability distributions
+LowVol_dist = np.array(Lowcounter)/np.sum(np.array(Lowcounter))
+MedVol_dist = np.array(Mediumcounter)/np.sum(np.array(Mediumcounter))
+HighVol_dist = np.array(Highcounter)/np.sum(np.array(Highcounter))
+
+#Making the table header
+tableheader = ["Absolute price change (%) ","Low Volatility  $P$" ,"Medium Volatility  $P$", "High Volatility  $P$"]
+tablebins = [f"{i*dp:.2f}-{(i+1)*dp:.2f}" for i in range(npoints)] + [f">{pUpper}.00"]
+
+#Making the list which can be inserted into the tabulate table
+table_vals_list = []
+for i in range(len(LowVol_dist)):
+    table_vals_list.append([tablebins[i],LowVol_dist[i],MedVol_dist[i],HighVol_dist[i]])
+
+print(tabulate(table_vals_list, headers=tableheader, tablefmt='orgtbl'))
+
 
         
     
